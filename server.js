@@ -28,3 +28,21 @@ app.get("/healthcheck", async function(req, res) {
         errorHandler.handle(req, res, err);
     }
 });
+
+app.get("/file-gen", async function(req, res) {
+    try {
+        fs = require('fs');
+        fs.writeFile('helloworld.txt', 'Hello World!', function (err) {
+          if (err) return console.log(err);
+          console.log('Hello World > helloworld.txt');
+        });
+        res.send("ok file gen");
+    } catch (err) {
+        errorHandler.handle(req, res, err);
+    }
+});
+
+app.get("/file-dn", async function(req, res) {
+    const file = `helloworld.txt`;
+    res.download(file); // Set disposition and send it.
+});
